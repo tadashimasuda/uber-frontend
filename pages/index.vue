@@ -132,6 +132,9 @@ ul#contents {
   height: auto;
   margin: 0 auto;
 }
+div#show{
+  border:1px solid black;
+}
 li.content {
   width: 380px;
   height: 110px;
