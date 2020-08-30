@@ -16,10 +16,10 @@ export default {
         elm.addEventListener("click", () => {
           self.$store.dispatch("setLoading", true);
           window.scrollTo(0, 0);
-          h2c(document.querySelector("show"), {
-            background: "#fff",
+          h2c(document.querySelector("#show"), {
+            backgroundColor: "#fff",
           }).then((canvas) => {
-            canvas.toBlob((blob) => {
+            canvas.toBlob(blob => {
               const reader = new FileReader();
               reader.readAsDataURL(blob);
               reader.onload = function () {

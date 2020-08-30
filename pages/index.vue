@@ -2,13 +2,21 @@
   <div class="container">
     <div id="form_box">
       <div id="show">
-        {{area}}
+        <span id="canvas_area">
+          {{area}}
+          </span>
         <span v-for="option in ways" :key="option.id">
           <template v-if="option.value === way">{{option.name}}</template>
         </span>
-        {{hour}}時間{{min}}分
+        <span id="canvas_time">
+          {{hour}}時間{{min}}分
+        </span>
+        <span id="canvas_count">
         {{count}}件
-        {{reward}}円
+        </span>
+        <span id="canvas_reward">
+          {{reward}}円
+        </span>
       </div>
       <ul>
         <form>
@@ -49,30 +57,42 @@
             <label for="reward">報酬金額</label>
           </li>
           <li class="input">
-            <input type="text" id="reward" v-model="reward" />円
+            <input type="number" id="reward" v-model="reward" />円
           </li>
           <li class="label">
             <label for="comment">コメント</label>
           </li>
           <li class="input">
-            <input type="text" id="text" />
+            <input type="text" id="comment"  name="comment" v-model="comment"/>
           </li>
-          <li class="input">
+          <!-- <li class="input">
             <input type="button" id="button" />
-          </li>
+          </li> -->
+          <div class="control">
+            <client-only placeholder="Loading...">
+              <GenerateOGPButton @click="handleGenerateOGP" />
+            </client-only>
+          </div>
         </form>
       </ul>
-      <div id="popup">
+      <!-- <div id="popup">
         <h1>お疲れ様です。</h1>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
+import GenerateOGPButton from "@/components/GenerateOGPButton";
+
 export default {
+  components:{
+    GenerateOGPButton
+  },
   data() {
     return {
+      comment:"",
+      isLoading:false,
       area: "",
       reward: 0,
       way: "",
@@ -86,6 +106,20 @@ export default {
       ],
     };
   },
+  methods:{
+    handleGenerateOGP(e){
+      //vuex action
+      this.$store.dispatch("setMessage",{
+        message:this.comment,
+        image:e,
+        area:this.area,
+        way:this.way,
+        count:this.count,
+        time:this.hour*60+this.min,
+        reward:Number(this.reward)
+      })
+    }
+  }
 };
 </script>
 
@@ -134,6 +168,8 @@ ul#contents {
 }
 div#show{
   border:1px solid black;
+  padding:20px 0;
+  margin-bottom: 30px;
 }
 li.content {
   width: 380px;

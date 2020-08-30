@@ -23,7 +23,7 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { href:'https://use.fontawesome.com/releases/v5.6.1/css/all.css',rel:'stylesheet'}
+      { href: 'https://use.fontawesome.com/releases/v5.6.1/css/all.css', rel: 'stylesheet' }
 
     ]
   },
@@ -31,8 +31,8 @@ export default {
   ** Global CSS
   */
   css: [
-     '@fortawesome/fontawesome-svg-core/styles.css',
-   ],
+    '@fortawesome/fontawesome-svg-core/styles.css',
+  ],
   /*
   ** Plugins to load before mounting the App
   ** https://nuxtjs.org/guide/plugins
@@ -54,9 +54,23 @@ export default {
   */
   modules: [
     // Doc: https://github.com/nuxt-community/modules/tree/master/packages/bulma
+    '@nuxtjs/axios',
     '@nuxtjs/bulma',
     'nuxt-fontawesome',
+
   ],
+  /*
+  ** Axios module configuration
+  ** See https://axios.nuxtjs.org/options
+  */
+  axios: {
+    // See https://github.com/nuxt-community/axios-module#options
+    baseURL: "http://localhost:8000/",
+    // proxy: true
+  },
+  proxy: {
+    "/api": "/"
+  },
   fontawesome: {
     imports: [
       {
