@@ -35,23 +35,20 @@ export const actions = {
         console.log(payload);
         const id = await this.$axios.$post("/api/records", payload);
         if (id) {
-            this.$router.push(`/records/${id}/`);
+            //遷移
+            console.log(id)
+            this.$router.push(`/record/${id}/`);
         }
     },
     setLoading({ commit }, payload) {
         commit("setLoading", payload);
     },
-    // async getOPG({ commit }, payload) {
-    //     console.log(payload)
-    //     const data = await this.$axios.$get(`/api/records/${payload}`);
-    //     // const data = await this.$axios.$get(`/api/records/e2cb511d-5e05-4fa4-8bea-cc77b68c1c54`);
-    //     commit("setOGP", data);
-    // }
     async getOPG({ commit }, payload) {
-        console.log(payload);
+        console.log('aa', payload);
         const data = await this.$axios.$get(`/api/records/${payload}`);
+        console.log(data);
         commit("setOGP", data);
-      }
+    }
 };
 
 export const getters = {

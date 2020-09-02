@@ -4,6 +4,7 @@
     <div class="columns">
       <!-- <h2 class="subtitle">{{ogpData.message}}</h2>
       <img src="ogpData.url" alt="">-->
+      {{ogpData}}
     </div>
   </section>
 </template>
@@ -53,13 +54,12 @@ export default {
   computed: {
     ogpData() {
       return this.$store.getters["ogpData"];
-    },
+    }
   },
   async fetch({ app, store, route }) {
     const id = route.params.id;
-    console.log(route);
     await store.dispatch("getOPG", id);
     return;
-  },
+  }
 };
 </script>
