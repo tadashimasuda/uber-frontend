@@ -8,7 +8,8 @@ export const state = () => ({
     comment: "",
 
     isLoading: false,
-    ogpData: {}
+    ogpData: {},
+    allData:{}
 });
 
 export const mutations = {
@@ -26,6 +27,9 @@ export const mutations = {
     },
     setOGP(state, payload) {
         state.ogpData = payload;
+    },
+    setAll(state,payload){
+        state.allData = payload;
     }
 };
 
@@ -39,6 +43,10 @@ export const actions = {
             console.log(id)
             this.$router.push(`/record/${id}/`);
         }
+    },
+    async getAll({ commit }, payload) {
+        const records = await this.$axios.$get("/api/records");
+        commit("setAll",records);
     },
     setLoading({ commit }, payload) {
         commit("setLoading", payload);
@@ -60,5 +68,8 @@ export const getters = {
     },
     ogpData(state) {
         return state.ogpData;
+    },
+    allData(state){
+        return state.allData;
     }
 };

@@ -2,8 +2,9 @@
   <section class="section no-top-pad">
     詳細ページ
     <div class="columns">
-      <!-- <h2 class="subtitle">{{ogpData.message}}</h2>
-      <img src="ogpData.url" alt="">-->
+      <h2 class="subtitle">{{ogpData.message}}</h2>
+      <img src="ogpData.url" alt="">
+      
       {{ogpData}}
     </div>
   </section>
