@@ -52,9 +52,7 @@ export const actions = {
         commit("setLoading", payload);
     },
     async getOPG({ commit }, payload) {
-        console.log('aa', payload);
         const data = await this.$axios.$get(`/api/records/${payload}`);
-        console.log(data);
         commit("setOGP", data);
     }
 };
