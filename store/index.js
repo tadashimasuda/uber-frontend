@@ -9,13 +9,12 @@ export const state = () => ({
 
     isLoading: false,
     ogpData: {},
-    allData:{}
+    AllData: {},
 });
 
 export const mutations = {
-    // methods
     setMessage(state, payload) {
-        state.comment = payload.messsage,
+            state.comment = payload.messsage,
             state.area = payload.area,
             state.way = payload.way,
             state.count = payload.count,
@@ -28,25 +27,23 @@ export const mutations = {
     setOGP(state, payload) {
         state.ogpData = payload;
     },
-    setAll(state,payload){
-        state.allData = payload;
-    }
+    setAll(state, payload) {
+        state.AllData = payload;
+    },
 };
 
 export const actions = {
     //非同期
     async setMessage({ commit }, payload) {
-        console.log(payload);
         const id = await this.$axios.$post("/api/records", payload);
         if (id) {
             //遷移
-            console.log(id)
             this.$router.push(`/record/${id}/`);
         }
     },
     async getAll({ commit }, payload) {
         const records = await this.$axios.$get("/api/records");
-        commit("setAll",records);
+        commit("setAll", records);
     },
     setLoading({ commit }, payload) {
         commit("setLoading", payload);
@@ -54,7 +51,18 @@ export const actions = {
     async getOPG({ commit }, payload) {
         const data = await this.$axios.$get(`/api/records/${payload}`);
         commit("setOGP", data);
-    }
+    },
+    // async serchRecord({ commit }, keyword) {    
+    //     // const records = await this.$axios.$get(`/api/records/keyword`, {
+    //     //     params: {
+    //     //         keyword: keyword
+    //     //     }
+    //     // });
+    //     const records = "aaaaa"
+    //     console.log(records);
+    //     commit("setAll", records);
+    // },
+
 };
 
 export const getters = {
@@ -67,7 +75,7 @@ export const getters = {
     ogpData(state) {
         return state.ogpData;
     },
-    allData(state){
-        return state.allData;
+    AllData(state) {
+        return state.AllData;
     }
 };
