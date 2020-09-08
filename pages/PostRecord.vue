@@ -1,24 +1,20 @@
 <template>
   <div class="container">
-    <div id="form_box">
       <div id="show">
-        <span id="canvas_area">
-          {{area}}
-          </span>
+        <p id="ogp_title">本日の配達</p>
+        <p id="ogp_area">{{area}} エリア</p>
+        <div id="ogp_time_count">
+          <span id="canvas_time">{{hour}}時間{{min}}分</span>
+          <span id="canvas_count">{{count}}件</span>
+        </div>
         <span v-for="option in ways" :key="option.id">
           <template v-if="option.value === way">{{option.name}}</template>
         </span>
-        <span id="canvas_time">
-          {{hour}}時間{{min}}分
-        </span>
-        <span id="canvas_count">
-        {{count}}件
-        </span>
-        <span id="canvas_reward">
-          {{reward}}円
-        </span>
+        <div id="ogp_reward">
+          <span id="canvas_reward">報酬:{{reward}}円</span>
+        </div>
       </div>
-      <ul>
+      <ul id="form">
         <form>
           <li class="label">
             <label for="area">稼働エリア</label>
@@ -63,11 +59,8 @@
             <label for="comment">コメント</label>
           </li>
           <li class="input">
-            <input type="text" id="comment"  name="comment" v-model="comment"/>
+            <input type="text" id="comment" name="comment" v-model="comment" />
           </li>
-          <!-- <li class="input">
-            <input type="button" id="button" />
-          </li> -->
           <div class="control">
             <client-only placeholder="Loading...">
               <GenerateOGPButton @click="handleGenerateOGP" />
@@ -77,8 +70,7 @@
       </ul>
       <!-- <div id="popup">
         <h1>お疲れ様です。</h1>
-      </div> -->
-    </div>
+      </div>-->
   </div>
 </template>
 
@@ -86,13 +78,13 @@
 import GenerateOGPButton from "@/components/GenerateOGPButton";
 
 export default {
-  components:{
-    GenerateOGPButton
+  components: {
+    GenerateOGPButton,
   },
   data() {
     return {
-      comment:"",
-      isLoading:false,
+      comment: "",
+      isLoading: false,
       area: "",
       reward: 0,
       way: "",
@@ -106,116 +98,67 @@ export default {
       ],
     };
   },
-  methods:{
-    handleGenerateOGP(e){
+  methods: {
+    handleGenerateOGP(e) {
       //vuex action
-      this.$store.dispatch("setMessage",{
-        message:this.comment,
-        image:e,
-        area:this.area,
-        way:this.way,
-        count:this.count,
-        time:this.hour*60+this.min,
-        reward:Number(this.reward)
-      })
-    }
-  }
+      this.$store.dispatch("setMessage", {
+        message: this.comment,
+        image: e,
+        area: this.area,
+        way: this.way,
+        count: this.count,
+        time: this.hour * 60 + this.min,
+        reward: Number(this.reward),
+      });
+    },
+  },
 };
 </script>
 
-<style>
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-div#contents_box {
-  width: 100%;
-  height: auto;
-  min-height: 300px;
-  margin-top: 10px;
-}
-ul#contents {
-  width: 100%;
-  max-width: 1020px;
-  height: auto;
+<style scoped>
+div#show {
+  background-color: black;
+  border: #35aa3e solid 20px;
+  padding: 20px 0;
+  height: 400px;
+  width: 700px;
   margin: 0 auto;
-}
-div#show{
-  border:1px solid black;
-  padding:20px 0;
-  margin-bottom: 30px;
-}
-li.content {
-  width: 380px;
-  height: 110px;
-  background-color: #fff;
-  border: 1px solid #707070;
-  float: left;
-  margin-left: 30px;
-  margin-top: 20px;
-}
-li.content a {
-  padding: 50px 0 50px 100px;
-  line-height: 110px;
-  text-align: center;
-  font-size: 18px;
-}
-li.content a span {
-  padding-left: 100px;
-  padding-right: 60px;
-}
-
-/* form */
-div#form_box {
-  max-width: 800px;
-  height: auto;
-  margin: 0 auto;
-  margin-top: 100px;
-}
-ul {
-  width: 100%;
-  height: auto;
-}
-li.label {
-  text-align: center;
-}
-li.label label {
+  color: #fff;
   font-weight: bold;
-  font-size: 25px;
+  text-align: center;
+  margin-top: 50px;
+}
+p#ogp_title{
+  font-size: 45px;
+}
+p#ogp_area{
+  font-size: 35px;
+}
+#ogp_time_count{
+  font-size: 65px;
+}
+div#ogp_reward{
+  font-size: 75px;
+}
+ul#form{
+  width: 600px;
+  margin :0 auto;
+  margin-top: 30px;
   text-align: center;
 }
-li.input {
+li{
+  width:350px;
+  height:auto;
+}
+li input,select{
   width: 100%;
-  height: auto;
-  /* text-align: center; */
-  margin-bottom: 20px;
+  height:40px;
+  font-size: 20px;
 }
-li.input select,
-input {
-  width: 100%;
-  /* text-align: center; */
+li input#comment{
+  height:150px;
 }
-input#submit {
-  margin: 0 auto;
-}
-input#text {
-  height: 200px;
+li.input{
+  margin-bottom: 10px;
 }
 </style>

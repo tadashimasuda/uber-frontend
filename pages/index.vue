@@ -8,7 +8,7 @@
       </p>
     </div>
     <div id="index_post_btn">
-      <nuxt-link id="index_post_btn_link" to="/PostRecord">投稿画面へ</nuxt-link>
+      <nuxt-link id="index_post_btn_link" to="/PostRecord">投稿する</nuxt-link>
     </div>
     <div id="records_box">
       <ul id="records" class="clearfix">
@@ -71,16 +71,15 @@ div#info img {
 }
 #index_post_btn {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 80px;
 }
 #index_post_btn_link {
-  padding: 20px 60px;
+  padding: 30px 90px;
   background-color: #e22222;
   color: white;
-  font-size: 20px;
-  width: 274px;
-  height: 62px;
-  border-radius: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  border-radius: 30px;
   border: 1px solid #707070;
 }
 ul#records {
@@ -92,7 +91,7 @@ ul#records {
 li#record {
   width: 600px;
   height: auto;
-  margin: 0 10px 10px 10px;
+  margin: 0 20px 40px 20px;
   display: inline-block;
   border: 1px solid black;
 }

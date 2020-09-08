@@ -16,9 +16,8 @@ export default {
 
 <style>
 div.container {
-  max-width: 1500px;
+  max-width: 1600px;
   min-height: 500px;
   height: auto;
-  border: 1px solid black;
 }
 </style>
