@@ -52,17 +52,6 @@ export const actions = {
         const data = await this.$axios.$get(`/api/records/${payload}`);
         commit("setOGP", data);
     },
-    // async serchRecord({ commit }, keyword) {    
-    //     // const records = await this.$axios.$get(`/api/records/keyword`, {
-    //     //     params: {
-    //     //         keyword: keyword
-    //     //     }
-    //     // });
-    //     const records = "aaaaa"
-    //     console.log(records);
-    //     commit("setAll", records);
-    // },
-
 };
 
 export const getters = {

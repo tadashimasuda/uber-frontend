@@ -6,7 +6,7 @@
     <nuxt-link to="/">
       <h1 id="header_title">
         Uber
-        <span>Driver</span>
+        <span>配達員日記</span>
       </h1>
     </nuxt-link>
     <div id="header_login">
@@ -22,7 +22,7 @@ export default {
 </script>
 <style>
 header {
-  min-height: 65px;
+  min-height: 120px;
   width: 100%;
   background-color: rgb(0, 0, 0);
 }
@@ -35,15 +35,15 @@ div#header_menu_icon {
 }
 h1#header_title {
   text-align: center;
-  line-height: 65px;
+  line-height: 120px;
 }
 h1#header_title  {
-  color: white;
+  color: #35aa3e;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 30px;
 }
 h1#header_title  span {
-  color: #35aa3e;
+  color: white;
 }
 div#header_login {
   height: 65px;

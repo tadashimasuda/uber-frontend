@@ -1,14 +1,23 @@
 <template>
-  <div>
-    <nuxt-link to="/PostRecord">投稿画面へ</nuxt-link>
-    <div id="app">
-      <input type="text" v-model="keyword">
-      <table>
-        <tr v-for="record in recordSearch" :key="record.id">
-          <td v-text="record"></td>
-        </tr>
-      </table>
+  <div class="container">
+    <div id="info">
+      <img src="@/assets/image/top_img.png" />
+      <p>
+        配達員による活動報告や情報共有ができるサイトです！
+        <br />Twitter投稿もできるのでご気軽に！
+      </p>
     </div>
+    <div id="index_post_btn">
+      <nuxt-link id="index_post_btn_link" to="/PostRecord">投稿画面へ</nuxt-link>
+    </div>
+
+    <ul id="records" class="clearfix">
+      <li id="record" v-for="record in recordSearch" :key="record.id">
+        <nuxt-link :to="`/record/${record.id}`">
+          <img src alt />
+        </nuxt-link>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -38,3 +47,57 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+div#info {
+  width: 100%;
+  height: 600px;
+  background: #fff;
+  text-align: center;
+  /* border: 1px solid black; */
+  font-size: 30px;
+  font-weight: bold;
+}
+div#info img {
+  height: 256px;
+  width: 318px;
+  margin-top: 100px;
+  margin-bottom: 50px;
+}
+#index_post_btn {
+  text-align: center;
+  margin-bottom: 50px;
+}
+#index_post_btn_link {
+  padding: 20px 60px;
+  background-color: #e22222;
+  color: white;
+  font-size: 20px;
+  width: 274px;
+  height: 62px;
+  border-radius: 10px;
+  border: 1px solid #707070;
+}
+ul#records {
+  height: auto;
+  width: 100%;
+  margin: 0 auto;
+  /* border: 1px solid #707070; */
+}
+li#record {
+  width: 600px;
+  height: 400px;
+  float: left;
+  margin-right: 50px;
+}
+li#record img {
+  width: 100%;
+  height: 270px;
+  border: 1px solid black;
+}
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+</style>
