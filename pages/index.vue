@@ -10,14 +10,19 @@
     <div id="index_post_btn">
       <nuxt-link id="index_post_btn_link" to="/PostRecord">投稿画面へ</nuxt-link>
     </div>
-
-    <ul id="records" class="clearfix">
+    <div id="records_box">
+      <ul id="records" class="clearfix">
       <li id="record" v-for="record in recordSearch" :key="record.id">
         <nuxt-link :to="`/record/${record.id}`">
           <img src alt />
         </nuxt-link>
+        <div id="post_user">
+          <img src="" alt="">
+          <p>Unkown</p>
+        </div>
       </li>
     </ul>
+    </div>
   </div>
 </template>
 
@@ -82,18 +87,34 @@ ul#records {
   height: auto;
   width: 100%;
   margin: 0 auto;
-  /* border: 1px solid #707070; */
+  text-align: center;
 }
 li#record {
   width: 600px;
-  height: 400px;
-  float: left;
-  margin-right: 50px;
+  height: auto;
+  margin: 0 10px 10px 10px;
+  display: inline-block;
+  border: 1px solid black;
 }
-li#record img {
+li#record img{
   width: 100%;
   height: 270px;
-  border: 1px solid black;
+  background-color: black;
+}
+div#post_user{
+  height:100px;
+  width: 100%;
+}
+div#post_user img{
+  height:60px;
+  width:60px;
+  border-radius: 50%;
+  float: left;
+  margin-left: 20px;
+}
+div#post_user p{
+  float: left;
+  margin-top: 10px;
 }
 .clearfix::after {
   content: "";
