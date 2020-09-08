@@ -6,22 +6,23 @@
         配達員による活動報告や情報共有ができるサイトです！
         <br />Twitter投稿もできるのでご気軽に！
       </p>
+      <h2 v-if="$store.state.auth.authUser">ようこそ{{$store.state.auth.authUser.user.name}}</h2>
     </div>
     <div id="index_post_btn">
       <nuxt-link id="index_post_btn_link" to="/PostRecord">投稿する</nuxt-link>
     </div>
     <div id="records_box">
       <ul id="records" class="clearfix">
-      <li id="record" v-for="record in recordSearch" :key="record.id">
-        <nuxt-link :to="`/record/${record.id}`">
-          <img src alt />
-        </nuxt-link>
-        <div id="post_user">
-          <img src="" alt="">
-          <p>Unkown</p>
-        </div>
-      </li>
-    </ul>
+        <li id="record" v-for="record in recordSearch" :key="record.id">
+          <nuxt-link :to="`/record/${record.id}`">
+            <img src alt />
+          </nuxt-link>
+          <div id="post_user">
+            <img src alt />
+            <p>Unkown</p>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -69,6 +70,11 @@ div#info img {
   margin-top: 100px;
   margin-bottom: 50px;
 }
+h2 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+}
 #index_post_btn {
   text-align: center;
   margin-bottom: 80px;
@@ -95,23 +101,23 @@ li#record {
   display: inline-block;
   border: 1px solid black;
 }
-li#record img{
+li#record img {
   width: 100%;
   height: 270px;
   background-color: black;
 }
-div#post_user{
-  height:100px;
+div#post_user {
+  height: 100px;
   width: 100%;
 }
-div#post_user img{
-  height:60px;
-  width:60px;
+div#post_user img {
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
   float: left;
   margin-left: 20px;
 }
-div#post_user p{
+div#post_user p {
   float: left;
   margin-top: 10px;
 }

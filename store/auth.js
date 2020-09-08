@@ -14,7 +14,7 @@ export const actions = {
             const data = await this.$axios.$post('/api/login', { email,password })
             console.log(data);
             commit('SET_USER', data)
-            // this.$router.push(`/login`);
+            this.$router.push(`/`);
         } catch (error) {
             if (error.response && error.response.status === 401) {
                 throw new Error('Bad credentials')

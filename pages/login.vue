@@ -1,15 +1,7 @@
 <template>
-  <div>
-    <p>{{$store.state.auth.authUser}}</p>
+  <div id="login_form" >
     <form v-if="!$store.state.auth.authUser" @submit.prevent="login">
       <p v-if="formError" class="error">{{ formError }}</p>
-      <p>
-        <i>
-          To login, use
-          <b>demo</b> as Email and
-          <b>demo</b> as password.
-        </i>
-      </p>
       <p>
         Email:
         <input v-model="formEmail" type="text" name="Email" />
@@ -50,3 +42,17 @@ export default {
   },
 };
 </script>
+
+<style>
+div#login_form{
+  width: 800px;
+  height: 250px;
+  margin:0 auto;
+  margin-top: 300px;
+  border:1px solid black;
+  text-align: center;
+}
+form p{
+  margin-top: 30px;
+}
+</style>

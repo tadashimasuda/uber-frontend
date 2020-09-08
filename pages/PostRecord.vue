@@ -126,7 +126,7 @@ div#show {
   color: #fff;
   font-weight: bold;
   text-align: center;
-  margin-top: 50px;
+  margin-top: 200px;
 }
 p#ogp_title{
   font-size: 45px;

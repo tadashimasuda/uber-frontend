@@ -9,16 +9,24 @@
         <span>配達員日記</span>
       </h1>
     </nuxt-link>
-    <div id="header_login">
-      <nuxt-link to="#">Login</nuxt-link>
+    <div v-if="!$store.state.auth.authUser">
+      <nuxt-link to="/login" id="header_login">Login</nuxt-link>
+    </div>
+    <div v-else>
+     <button @click="logout" v-if="$store.state.auth.authUser">Logout</button>
     </div>
   </header>
 </template>
 
 <script>
 export default {
-    
-}
+  methods: {
+    async logout() {
+        await this.$store.dispatch("auth/logout");
+        this.$router.push('/');
+    },
+  },
+};
 </script>
 <style>
 header {
@@ -36,24 +44,21 @@ div#header_menu_icon {
 h1#header_title {
   text-align: center;
   line-height: 120px;
+  position: relative;
+
 }
-h1#header_title  {
+h1#header_title {
   color: #35aa3e;
   font-weight: bold;
   font-size: 30px;
 }
-h1#header_title  span {
+h1#header_title span {
   color: white;
 }
-div#header_login {
-  height: 65px;
-  width: 66px;
-  display: none;
-  float: right;
-  margin-right: 20px;
-}
-div#header_login  {
+#header_login {
+  padding: 10px 50px;
   color: white;
+  display: inline-block;
 }
 
 /* main */
