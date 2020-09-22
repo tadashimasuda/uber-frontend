@@ -68,9 +68,6 @@
           </div>
         </form>
       </ul>
-      <!-- <div id="popup">
-        <h1>お疲れ様です。</h1>
-      </div>-->
   </div>
 </template>
 
@@ -101,7 +98,7 @@ export default {
   methods: {
     handleGenerateOGP(e) {
       //vuex action
-      this.$store.dispatch("setMessage", {
+      this.$store.dispatch("record/setMessage", {
         message: this.comment,
         image: e,
         area: this.area,

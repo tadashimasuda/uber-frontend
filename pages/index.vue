@@ -6,23 +6,23 @@
         配達員による活動報告や情報共有ができるサイトです！
         <br />Twitter投稿もできるのでご気軽に！
       </p>
-      <h2 v-if="$store.state.auth.authUser">ようこそ{{$store.state.auth.authUser.user.name}}</h2>
+      <h2 v-if="$store.state.user">ようこそ{{$store.state.user}}</h2>
     </div>
     <div id="index_post_btn">
       <nuxt-link id="index_post_btn_link" to="/PostRecord">投稿する</nuxt-link>
     </div>
     <div id="records_box">
-      <ul id="records" class="clearfix">
+      <!-- <ul id="records" class="clearfix">
         <li id="record" v-for="record in recordSearch" :key="record.id">
-          <nuxt-link :to="`/record/${record.id}`">
-            <img src alt />
+          <nuxt-link :to="`/record/${record.file_path}`">
+            <img :src="'https://uber-backend.s3-ap-northeast-1.amazonaws.com/'+record.file_path" alt />
           </nuxt-link>
           <div id="post_user">
             <img src alt />
             <p>Unkown</p>
           </div>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </div>
 </template>
@@ -32,11 +32,11 @@ export default {
   data() {
     return {
       keyword: "",
-      records: this.$store.getters["AllData"],
+      records: this.$store.getters["record/AllData"],
     };
   },
   async fetch({ app, store, route }) {
-    await store.dispatch("getAll"); //全件取得
+    await store.dispatch("record/getAll"); //全件取得
     return;
   },
   computed: {

@@ -55,6 +55,7 @@ export default {
   modules: [
     // Doc: https://github.com/nuxt-community/modules/tree/master/packages/bulma
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
     '@nuxtjs/bulma',
     'nuxt-fontawesome',
 
@@ -67,6 +68,23 @@ export default {
     // See https://github.com/nuxt-community/axios-module#options
     baseURL: "http://localhost:8000/",
     // proxy: true
+  },
+  auth: {
+    redirect: {
+      login: '/login',   // 未ログイン時に認証ルートへアクセスした際のリダイレクトURL
+      logout: '/login',  // ログアウト時のリダイレクトURL
+      callback: false,   // Oauth認証等で必要となる コールバックルート
+      home: '/',         // ログイン後のリダイレクトURL
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'api/auth/login', method: 'post', propertyName: 'token' },
+          logout:{url: '/api/auth/logout', method: 'get'},
+          user: { url: '/api/auth/user', method: 'get', propertyName: 'user' },
+        },
+      }
+    }
   },
   proxy: {
     "/api": "/"

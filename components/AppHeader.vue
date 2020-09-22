@@ -9,24 +9,40 @@
         <span>配達員日記</span>
       </h1>
     </nuxt-link>
-    <div v-if="!$store.state.auth.authUser">
+    <p>{{$store.state.auth.user}}</p>
+    <div v-if="!$store.state.auth.user">
       <nuxt-link to="/login" id="header_login">Login</nuxt-link>
     </div>
     <div v-else>
-     <button @click="logout" v-if="$store.state.auth.authUser">Logout</button>
+     <button @click="logout" v-if="$store.state.auth.user">Logout</button>
     </div>
+    <p style="color:#fff;" v-if="token">トークンあり</p>
+     <button @click="getUser" >get</button>
   </header>
 </template>
 
 <script>
 export default {
-  methods: {
-    async logout() {
-        await this.$store.dispatch("auth/logout");
-        this.$router.push('/');
-    },
+  data(){
+    return{
+      token:""
+    }
   },
-};
+  methods: {
+    logout() {
+        this.$auth.logout();
+    },
+    async getUser(){
+       await this.$store.dispatch("auth/getUser");
+    }
+  },
+  mounted() {
+    if(localStorage.getItem("token")){
+      this.token=localStorage.getItem("token")
+      
+    }
+  } 
+}
 </script>
 <style>
 header {

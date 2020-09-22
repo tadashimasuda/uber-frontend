@@ -14,10 +14,10 @@ export default {
       if (process.client) {
         const h2c = require("html2canvas");
         elm.addEventListener("click", () => {
-          self.$store.dispatch("setLoading", true);
+          self.$store.dispatch("record/setLoading", true);
           window.scrollTo(0, 0);
           h2c(document.querySelector("#show"), {
-            backgroundColor: "#fff",
+            // backgroundColor: "#fff",
           }).then((canvas) => {
             canvas.toBlob(blob => {
               const reader = new FileReader();

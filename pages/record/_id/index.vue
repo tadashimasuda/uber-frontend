@@ -1,8 +1,39 @@
 <template>
-  <section class="section no-top-pad">
-    詳細ページ
-  </section>
+  <div class="container">
+    <div id="comment_box">
+      <img :src="ogpData.url" />
+      <h2 id="commment_title">投稿者のコメント</h2>
+      <p>{{ogpData.message}}</p>
+      <button>お疲れ様を送る</button>
+      <!-- {{this.$store.getters["ogpData"]}} -->
+    </div>
+  </div>
 </template>
+
+<style scoped>
+div#comment_box {
+  width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 60px;
+}
+h2,p{
+  margin-top: 20px;
+  font-size: 25px;
+  font-weight: bold;
+}
+button{
+  width: 300px;
+  height:80px;
+  border-radius: 50px;
+  text-align: center;
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  background-color: red;
+}
+</style>
 
 <script>
 export default {
@@ -46,15 +77,16 @@ export default {
   //     ],
   //   };
   // },
-  // computed: {
-  //   ogpData() {
-  //     return this.$store.getters["ogpData"];
-  //   }
-  // },
-  // async fetch({ app, store, route }) {
-  //   const id = route.params.id;
-  //   await store.dispatch("getOPG", id);
-  //   return;
-  // }
+  computed: {
+    ogpData() {
+      return this.$store.getters["ogpData"];
+    },
+  },
+  async fetch({ app, store, route }) {
+    const id = route.params.id;
+    console.log(id);
+    await store.dispatch("getOPG", id);
+    return;
+  },
 };
 </script>

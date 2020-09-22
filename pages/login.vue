@@ -1,58 +1,60 @@
 <template>
-  <div id="login_form" >
-    <form v-if="!$store.state.auth.authUser" @submit.prevent="login">
-      <p v-if="formError" class="error">{{ formError }}</p>
+  <div id="login_form">
+    <h2>ログイン状態:{{ $auth.loggedIn }}</h2>
+    <p>{{ $auth.user }}</p>
+    <form @submit.prevent="login">
       <p>
         Email:
-        <input v-model="formEmail" type="text" name="Email" />
+        <input v-model="form.email" type="email" name="Email" />
       </p>
       <p>
         Password:
-        <input v-model="formPassword" type="password" name="password" />
+        <input v-model="form.password" type="password" name="password" />
       </p>
       <button type="submit">Login</button>
     </form>
-    <button @click="logout" v-if="$store.state.auth.authUser">Logout</button>
   </div>
 </template>
 
 <script>
 export default {
+  // middleware({ store, redirect }) {
+  //   if (store.$auth.loggedIn) {
+  //     redirect("/");
+  //   }
+  // },
   data() {
     return {
-      formError: null,
-      formEmail: "aaaa3@gmail.com",
-      formPassword: "",
+      form: {
+        email: "hoge@gmail.com",
+        password: "hogehoge",
+      },
     };
   },
   methods: {
-    async login() {
-      await this.$store.dispatch("auth/login", {
-        email: this.formEmail,
-        password: this.formPassword,
-      });
-      this.formEmail = "";
-      this.formPassword = "";
-      this.formError = null;
-    },
-    async logout() {
-        await this.$store.dispatch("auth/logout");
-        this.$router.push('/login');
+    login() {
+      this.$auth.loginWith("local", {data: this.form});
+    //   this.$auth.loginWith('local', {data: {data: this.form}}).then((response) => {
+    //       console.log(response); 
+    //     },
+    //     (error) => {
+    //       return error
+    //     })
     },
   },
 };
 </script>
 
 <style>
-div#login_form{
+div#login_form {
   width: 800px;
   height: 250px;
-  margin:0 auto;
+  margin: 0 auto;
   margin-top: 300px;
-  border:1px solid black;
+  border: 1px solid black;
   text-align: center;
 }
-form p{
+form p {
   margin-top: 30px;
 }
 </style>
