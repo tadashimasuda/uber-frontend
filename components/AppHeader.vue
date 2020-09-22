@@ -9,15 +9,13 @@
         <span>配達員日記</span>
       </h1>
     </nuxt-link>
-    <p>{{$store.state.auth.user}}</p>
+    <!-- <p>こんにちは{{$store.state.auth.user.name}}さん</p> -->
     <div v-if="!$store.state.auth.user">
       <nuxt-link to="/login" id="header_login">Login</nuxt-link>
     </div>
     <div v-else>
      <button @click="logout" v-if="$store.state.auth.user">Logout</button>
     </div>
-    <p style="color:#fff;" v-if="token">トークンあり</p>
-     <button @click="getUser" >get</button>
   </header>
 </template>
 

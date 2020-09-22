@@ -78,6 +78,11 @@ export default {
   components: {
     GenerateOGPButton,
   },
+  middleware({ store, redirect }) {
+    if (store.$auth.authenticated) {
+      redirect("/");
+    }
+  },
   data() {
     return {
       comment: "",
