@@ -11,6 +11,7 @@
     <div id="index_post_btn">
       <nuxt-link id="index_post_btn_link" to="/PostRecord">投稿する</nuxt-link>
     </div>
+      <nuxt-link id="index_post_btn_link" to="/user/1">User</nuxt-link>
     <div id="records_box">
       <!-- <ul id="records" class="clearfix">
         <li id="record" v-for="record in recordSearch" :key="record.id">

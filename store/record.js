@@ -29,21 +29,26 @@ export const mutations = {
     },
     setAll(state, payload) {
         state.AllData = payload;
-    },
+    }
 };
 
 export const actions = {
     //非同期
     async setMessage({ commit }, payload) {
-        const id = await this.$axios.$post("/api/records", payload);
+        const id = await this.$axios.$post(`/api/records`, payload);
         if (id) {
             //遷移
             this.$router.push(`/record/${id}`);
         }
     },
     async getAll({ commit }, payload) {
-        const records = await this.$axios.$get("/api/records");
+        const records = await this.$axios.$get(`/api/records`);
         commit("setAll", records);
+    },
+    async getUserrecords({ commit }, payload){
+        const records = await this.$axios.$get(`/api/records/user/${payload}`);
+        console.log(records);
+        commit("setAll",records);
     },
     setLoading({ commit }, payload) {
         commit("setLoading", payload);
@@ -52,6 +57,7 @@ export const actions = {
         const data = await this.$axios.$get(`/api/records/${payload}`);
         commit("setOGP", data);
     },
+
 };
 
 export const getters = {

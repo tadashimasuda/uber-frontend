@@ -109,6 +109,7 @@ export default {
         area: this.area,
         way: this.way,
         count: this.count,
+        user_id :$store.state.auth.user.id,
         time: this.hour * 60 + this.min,
         reward: Number(this.reward),
       });
