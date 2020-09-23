@@ -84,7 +84,6 @@ export default {
   },
   async fetch({ app, store, route }) {
     const id = route.params.id;
-    console.log(id);
     await store.dispatch("getOPG", id);
     return;
   },

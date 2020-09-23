@@ -16,9 +16,6 @@
     <div v-else>
       <button @click="logout" v-if="$store.state.auth.user">Logout</button>
     </div>
-    <div>
-      <nuxt-link to="/user" id="header_login">user</nuxt-link>
-    </div>
   </header>
 </template>
 

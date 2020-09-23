@@ -6,7 +6,10 @@
       <div id="user_profile">
         <p>テキストテキストテキストテキストテキストテキストテキスト</p>
       </div>
-      <div id="chart">{{ records | total}}</div>
+      <div id="chart">
+        {{ records | total}}
+        {{ records | recent5days }}
+      </div>
 
       <div id="user_records">
         {{records}}
@@ -48,7 +51,17 @@ export default {
       return total;
     },
     recent5days:function(records){
-      //直近をソートして return objec型
+      //recent5days data change object
+      let record =''
+      let recentRecords=[]
+
+      for(let x=0;x<5;x++){
+        recentRecords.push({
+        reward:records[x].reward,
+        created_at:records[x].created_at.substring(5,10)
+      });
+      }
+      return recentRecords
     }
   },
 };

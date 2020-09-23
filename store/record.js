@@ -47,7 +47,6 @@ export const actions = {
     },
     async getUserrecords({ commit }, payload){
         const records = await this.$axios.$get(`/api/records/user/${payload}`);
-        console.log(records);
         commit("setAll",records);
     },
     setLoading({ commit }, payload) {
