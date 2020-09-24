@@ -1,23 +1,29 @@
 <template>
   <div class="container">
-    <div id="user">
-      <div id="user_img"></div>
-      <p id="user_name">username</p>
-      <div id="user_profile">
-        <p>テキストテキストテキストテキストテキストテキストテキスト</p>
-      </div>
-      <div id="chart">
-        {{ records | total}}
-        {{ records | recent5days }}
+    <div id="user_box">
+      <div id="user_info">
+        <div id="user_img"></div>
+        <p id="user_name">username</p>
+        <div id="user_profile">
+          <p>テキストテキストテキストテキストテキストテキストテキスト</p>
+        </div>
       </div>
 
+      <div id="chart_box">
+        <div id="total">
+          <p>今までの合計金額:{{ records | total}}円</p>
+        </div>
+        <div id="chart">
+          <BarChart :recent5days="records|recent5days" />
+        </div>
+      </div>
       <div id="user_records">
-        {{records}}
         <ul class="clearfix records">
-          <li class="record"></li>
-          <li class="record"></li>
-          <li class="record"></li>
-          <li class="record"></li>
+          <li class="record" v-for="record in records" :key="record.id">
+          <nuxt-link :to="`/record/${record.file_path}`">
+            <img :src="'https://uber-backend.s3-ap-northeast-1.amazonaws.com/'+record.file_path" alt="" />
+          </nuxt-link>
+        </li>
         </ul>
       </div>
     </div>
@@ -25,50 +31,53 @@
 </template>
 
 <script>
+import BarChart from "@/components/BarChart.vue";
 export default {
   //   middleware({ store, redirect }) {
   //     if (store.$auth.authenticated) {
   //       redirect("/login");
   //     }
   //   },
+  components: {
+    BarChart,
+  },
   data() {
     return {
       records: this.$store.getters["record/AllData"],
     };
   },
-  //fecth -> vuex (commit) ->
   async fetch({ route, store, params }) {
     const id = route.params.id;
     await store.dispatch("record/getUserrecords", id);
     return;
   },
   filters: {
-    total:function(records) {
-      let total =0;
+    total: function (records) {
+      let total = 0;
       for (let num = 0, len = records.length; num < len; num++) {
         total = total + records[num].reward;
       }
       return total;
     },
-    recent5days:function(records){
+    recent5days: function (records) {
       //recent5days data change object
-      let record =''
-      let recentRecords=[]
+      let record = "";
+      let recentRecords = [];
 
-      for(let x=0;x<5;x++){
+      for (let x = 0; x < 5; x++) {
         recentRecords.push({
-        reward:records[x].reward,
-        created_at:records[x].created_at.substring(5,10)
-      });
+          reward: records[x].reward,
+          created_at: records[x].created_at.substring(5, 10),
+        });
       }
-      return recentRecords
-    }
+      return recentRecords;
+    },
   },
 };
 </script>
 
 <style scoped>
-div#user {
+div#user_box {
   width: 1400px;
   height: auto;
   min-height: 500px;
@@ -103,13 +112,19 @@ div#user_profile p {
   height: 100%;
 }
 div#user_records,
-#chart {
+#chart_box {
   width: 1360px;
   height: auto;
   min-height: 300px;
   margin: 0 auto;
   margin-top: 20px;
   border: 1px solid black;
+}
+div#total {
+  margin: 15px 0;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
 }
 ul.records {
   width: 1200px;
@@ -118,9 +133,20 @@ ul.records {
 }
 li.record {
   width: 600px;
-  height: 300px;
+  height: auto;
   border: 1px solid black;
   float: left;
+}
+/* li#record {
+  width: 600px;
+  height: auto;
+  margin: 0 20px 40px 20px;
+  display: inline-block;
+  border: 1px solid black;
+} */
+li.record img {
+  width: 100%;
+  height: 270px;
 }
 .clearfix::after {
   content: "";
