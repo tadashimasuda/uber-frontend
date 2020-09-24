@@ -1,29 +1,44 @@
 <template>
   <div class="container">
     <div id="info">
+      <h1>Uber配達員日記とは？</h1>
       <img src="@/assets/image/top_img.png" />
       <p>
         配達員による活動報告や情報共有ができるサイトです！
         <br />Twitter投稿もできるのでご気軽に！
       </p>
-      <h2 v-if="$store.state.user">ようこそ{{$store.state.user}}</h2>
     </div>
-    <div id="index_post_btn">
-      <nuxt-link id="index_post_btn_link" to="/PostRecord">投稿する</nuxt-link>
+    <div id="login_box">
+      <div class="btn" id="twitter">Twitterでログイン</div>
+      <nuxt-link to="/login">
+        <div class="btn" id="default">ログイン</div>
+      </nuxt-link>
     </div>
-      <nuxt-link id="index_post_btn_link" to="/user/1">User</nuxt-link>
-    <div id="records_box">
-      <!-- <ul id="records" class="clearfix">
-        <li id="record" v-for="record in recordSearch" :key="record.id">
-          <nuxt-link :to="`/record/${record.file_path}`">
-            <img :src="'https://uber-backend.s3-ap-northeast-1.amazonaws.com/'+record.file_path" alt />
-          </nuxt-link>
-          <div id="post_user">
-            <img src alt />
-            <p>Unkown</p>
-          </div>
-        </li>
-      </ul> -->
+    <div id="today_post_box">
+      <h2>本日の配達</h2>
+      <nuxt-link id="post_btn" to="/PostRecord">
+        <div id="post" class="btn">投稿する</div>
+      </nuxt-link>
+      <div id="records_box">
+        <ul id="records" class="clearfix">
+          <li id="record" v-for="record in topRecord" :key="record.id">
+            <div class="record_img">
+              <nuxt-link :to="`/record/${record.file_path}`">
+                <img
+                  :src="'https://uber-backend.s3-ap-northeast-1.amazonaws.com/'+record.file_path"
+                  alt
+                />
+              </nuxt-link>
+            </div>
+            <div id="post_user">
+              <img src alt />
+              <p>Unkown</p>
+            </div>
+          </li>
+        </ul>
+        <!-- <nuxt-link>もっと見る...</nuxt-link> -->
+        <a href="#">もっと見る...</a>
+      </div>
     </div>
   </div>
 </template>
@@ -41,15 +56,18 @@ export default {
     return;
   },
   computed: {
-    recordSearch: function () {
-      var records = [];
-      for (var i in this.records) {
-        var record = this.records[i];
-        if (record.area.indexOf(this.keyword) !== -1) {
-          records.push(record);
-        }
-      }
-      return records;
+    // recordSearch: function () {
+    //   var records = [];
+    //   for (var i in this.records) {
+    //     var record = this.records[i];
+    //     if (record.area.indexOf(this.keyword) !== -1) {
+    //       records.push(record);
+    //     }
+    //   }
+    //   return records;
+    // },
+    topRecord: function () {
+      return this.records.slice(0, 4)
     },
   },
 };
@@ -58,12 +76,12 @@ export default {
 <style scoped>
 div#info {
   width: 100%;
-  height: 600px;
+  height: auto;
   background: #fff;
   text-align: center;
-  /* border: 1px solid black; */
   font-size: 30px;
   font-weight: bold;
+  margin-bottom: 30px;
 }
 div#info img {
   height: 256px;
@@ -71,23 +89,43 @@ div#info img {
   margin-top: 100px;
   margin-bottom: 50px;
 }
-h2 {
+div#login_box {
+  height: auto;
+  width: 100%;
+  margin-bottom: 20px;
+}
+div.btn {
+  height: 80px;
+  line-height: 80px;
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 2em;
+  color: #fff;
+  font-size: 25px;
+}
+div#twitter {
+  background-color: #07b3ff;
+  margin-bottom: 20px;
+}
+div#default {
+  background-color: #888888;
+}
+div#post {
+  background-color: red;
+}
+div#today_post_box {
+  height: auto;
+}
+div#today_post_box h2 {
   text-align: center;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
-#index_post_btn {
-  text-align: center;
-  margin-bottom: 80px;
-}
-#index_post_btn_link {
-  padding: 30px 90px;
-  background-color: #e22222;
-  color: white;
-  font-size: 30px;
-  font-weight: bold;
-  border-radius: 30px;
-  border: 1px solid #707070;
+div#records_box {
+  height: auto;
+  width: 100%;
 }
 ul#records {
   height: auto;
@@ -96,11 +134,11 @@ ul#records {
   text-align: center;
 }
 li#record {
-  width: 600px;
+  width: 550px;
   height: auto;
   margin: 0 20px 40px 20px;
-  display: inline-block;
   border: 1px solid black;
+  float: left;
 }
 li#record img {
   width: 100%;
@@ -126,5 +164,47 @@ div#post_user p {
   content: "";
   display: block;
   clear: both;
+}
+@media screen and (max-width: 460px) {
+  div#info h1 {
+    margin-top: 15px;
+    font-size: 20px;
+  }
+  div#info img {
+    height: 111px;
+    width: 138px;
+    margin-top: 20px;
+  }
+  div#info p {
+    font-size: 15px;
+  }
+  ul#records {
+    margin-top: 20px;
+  }
+  li#record {
+    width: 90%;
+    height: auto;
+    margin: 0 20px 40px 20px;
+    display: inline-block;
+    border: 1px solid black;
+  }
+  div.record_img {
+    height: 80%;
+  }
+  div#post_user {
+    height: 20%;
+    width: 100%;
+  }
+  div#post_user img {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    float: left;
+    margin-left: 20px;
+  }
+  div#post_user p {
+    float: left;
+    margin-top: 10px;
+  }
 }
 </style>

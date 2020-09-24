@@ -1,171 +1,66 @@
 <template>
   <header>
-    <div id="header_menu_icon">
+      <nuxt-link to="/">
+        <h1 id="header_title">
+          Uber
+          <span>配達員日記</span>
+        </h1>
+      </nuxt-link>
+    <a id="header_menu_icon" href="#">
       <font-awesome-icon icon="bars" />
-    </div>
-    <nuxt-link to="/">
-      <h1 id="header_title">
-        Uber
-        <span>配達員日記</span>
-      </h1>
-    </nuxt-link>
-    <!-- <p>こんにちは{{$store.state.auth.user.name}}さん</p> -->
-    <div v-if="!$store.state.auth.user">
-      <nuxt-link to="/login" id="header_login">Login</nuxt-link>
-    </div>
-    <div v-else>
-      <button @click="logout" v-if="$store.state.auth.user">Logout</button>
-    </div>
+    </a>
   </header>
 </template>
 
 <script>
 export default {
-  data(){
-    return{
-      token:""
-    }
+  data() {
+    return {
+      token: "",
+    };
   },
   methods: {
     logout() {
-        this.$auth.logout();
+      this.$auth.logout();
     },
-    async getUser(){
-       await this.$store.dispatch("auth/getUser");
-    }
+    async getUser() {
+      await this.$store.dispatch("auth/getUser");
+    },
   },
   mounted() {
-    if(localStorage.getItem("token")){
-      this.token=localStorage.getItem("token")
-      
+    if (localStorage.getItem("token")) {
+      this.token = localStorage.getItem("token");
     }
-  } 
-}
+  },
+};
 </script>
 <style>
 header {
-  min-height: 120px;
+  height: 180px;
   width: 100%;
-  background-color: rgb(0, 0, 0);
+  background-color: #35aa3e;
 }
-div#header_menu_icon {
-  float: left;
+h1#header_title {
+  line-height: 180px;
+  font-size: 50px;
   color: white;
-  display: none;
-  margin-left: 15px;
-  margin-top: 15px;
-}
-h1#header_title {
-  text-align: center;
-  line-height: 120px;
-  position: relative;
-
-}
-h1#header_title {
-  color: #35aa3e;
   font-weight: bold;
-  font-size: 30px;
-}
-h1#header_title span {
-  color: white;
-}
-#header_login {
-  padding: 10px 50px;
-  color: white;
   display: inline-block;
 }
-
-/* main */
-main {
-  min-height: 800px;
-  height: auto;
+h1#header_title span {
+  color: black;
 }
-div#main_wrapper {
-  max-width: 850px;
-  width: 100%;
-  margin: 0 auto;
-}
-div#top_img {
-  background-color: gray;
-  height: 300px;
-  width: 100%;
-}
-div#serch_box {
-  margin-top: 20px;
-  width: 100%;
-  height: 80px;
-  background: #fff;
-}
-div#serch_box h2 {
-  display: none;
-}
-div#serch_box select#city,
-select#station,
-input#serch_box,
-input#submit,
-p#or {
-  float: left;
-  margin-top: 20px;
-  margin-left: 25px;
-  height: 40px;
-}
-select#city,
-select#station {
-  width: 130px;
-  border-radius: 3px;
-  border: 1px solid #707070;
-}
-p#or {
-  margin-top: 0;
-  line-height: 80px;
-}
-input#serch_box {
-  width: 250px;
-}
-input#submit {
-  width: 150px;
-  border-radius: 4px;
-  background: rgba(226, 30, 30);
-  border: 1px solid #707070;
-  color: white;
-  font-size: 15px;
+a#header_menu_icon {
+  color: black;
+  display: inline-block;
 }
 @media screen and (max-width: 460px) {
-  div#header_menu_icon {
-    display: block;
+  header {
+    height: 80px;
   }
-  div#header_login {
-    margin-right: 0px;
-  }
-  div#header_login a {
-    font-size: 15px;
-  }
-
-  div#serch_box select#city,
-  select#station,
-  input#serch_box,
-  input#submit,
-  p#or {
-    float: none;
-    width: 310px;
-    height: 41px;
-    margin-left: 50px;
-    text-align: center;
-  }
-  div#serch_box h2#serch_title {
-    display: inline-block;
-    margin: 15px 0 0 10px;
-    font-size: 20px;
-  }
-  div#serch_box {
-    height: auto;
-  }
-  /* form */
-  div#popup {
-    width: 100%;
-  }
-  div#form_box {
-    width: 100%;
+  h1#header_title {
+    line-height: 80px;
+    font-size: 23px;
   }
 }
 </style>

@@ -8,7 +8,6 @@
           <p>テキストテキストテキストテキストテキストテキストテキスト</p>
         </div>
       </div>
-
       <div id="chart_box">
         <div id="total">
           <p>今までの合計金額:{{ records | total}}円</p>

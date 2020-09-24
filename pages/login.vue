@@ -1,18 +1,17 @@
 <template>
-  <div id="login_form">
-    <h2>ログイン状態:{{ $auth.loggedIn }}</h2>
-    <p>{{ $auth.user }}</p>
-    <form @submit.prevent="login">
-      <p>
-        Email:
-        <input v-model="form.email" type="email" name="Email" />
-      </p>
-      <p>
-        Password:
-        <input v-model="form.password" type="password" name="password" />
-      </p>
-      <button type="submit">Login</button>
-    </form>
+  <div class="container">
+    <div id="login_form">
+      <h2>ログイン状態:{{ $auth.loggedIn }}</h2>
+      <form @submit.prevent="login">
+        <div id="form_input">
+          <input v-model="form.email" type="email" name="Email" placeholder="メールアドレス" />
+          <input v-model="form.password" type="password" name="password" placeholder="パスワード" />
+        </div>
+        <div id="submit_box">
+          <button type="submit">Login</button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -28,13 +27,7 @@ export default {
   },
   methods: {
     login() {
-      this.$auth.loginWith("local", {data: this.form});
-    //   this.$auth.loginWith('local', {data: {data: this.form}}).then((response) => {
-    //       console.log(response); 
-    //     },
-    //     (error) => {
-    //       return error
-    //     })
+      this.$auth.loginWith("local", { data: this.form });
     },
   },
 };
@@ -43,13 +36,27 @@ export default {
 <style>
 div#login_form {
   width: 800px;
-  height: 250px;
   margin: 0 auto;
+  height: auto;
   margin-top: 300px;
-  border: 1px solid black;
   text-align: center;
 }
-form p {
-  margin-top: 30px;
+form input {
+  height: 60px;
+  width:100%;
+  margin-bottom: 20px;
+}
+button{
+  width:100%;
+  height: 60px;
+  background-color: red;
+  border-radius: 2em;
+  color: white;
+  font-size: 30px;
+}
+@media screen and (max-width: 460px) {
+div#login_form{
+  width: 100%;
+}
 }
 </style>
