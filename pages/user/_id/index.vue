@@ -77,7 +77,7 @@ export default {
 
 <style scoped>
 div#user_box {
-  width: 1400px;
+  width: 100%;
   height: auto;
   min-height: 500px;
   border: 1px solid black;
@@ -100,7 +100,7 @@ p#user_name {
 }
 div#user_profile {
   border: 1px solid black;
-  width: 400px;
+  width: 80%;
   height: 150px;
   overflow: scroll;
   margin: 0 auto;
@@ -112,12 +112,15 @@ div#user_profile p {
 }
 div#user_records,
 #chart_box {
-  width: 1360px;
+  width: 100%;
   height: auto;
   min-height: 300px;
   margin: 0 auto;
   margin-top: 20px;
   border: 1px solid black;
+}
+div#chart{
+  width: 100%;
 }
 div#total {
   margin: 15px 0;
@@ -126,30 +129,32 @@ div#total {
   font-weight: bold;
 }
 ul.records {
-  width: 1200px;
+  width: 100%;
   height: auto;
-  margin: 0 auto;
+  margin:0 auto;
 }
 li.record {
-  width: 600px;
+  width: 45%;
   height: auto;
   border: 1px solid black;
   float: left;
+  margin-left: 3.33%;
+  margin-bottom: 20px;
 }
-/* li#record {
-  width: 600px;
-  height: auto;
-  margin: 0 20px 40px 20px;
-  display: inline-block;
-  border: 1px solid black;
-} */
 li.record img {
   width: 100%;
-  height: 270px;
 }
 .clearfix::after {
   content: "";
   display: block;
   clear: both;
+}
+@media screen and (max-width: 460px) {
+  li.record {
+    width: 90%;
+    margin:0 auto;
+    float: none;
+    margin-bottom: 10px;
+  }
 }
 </style>

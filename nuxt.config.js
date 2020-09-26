@@ -57,6 +57,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     '@nuxtjs/bulma',
+    '@nuxtjs/proxy',
     'nuxt-fontawesome',
 
   ],
@@ -87,7 +88,11 @@ export default {
     }
   },
   proxy: {
-    "/api": "/"
+    // "/api": "/"
+    'api':{
+      target:'http://localhost:8000/'
+    }
+
   },
   fontawesome: {
     imports: [

@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <div id="login_form">
-      <h2>ログイン状態:{{ $auth.loggedIn }}</h2>
+      <h2>ログイン状態:{{$auth.$state.loggedIn}}</h2>
+      <h2>ユーザ情報:{{ $auth.user }}</h2>
       <form @submit.prevent="login">
         <div id="form_input">
           <input v-model="form.email" type="email" name="Email" placeholder="メールアドレス" />
@@ -9,6 +10,10 @@
         </div>
         <div id="submit_box">
           <button type="submit">Login</button>
+        </div>
+        <div id="submit_box">
+          <button type="submit">
+            <nuxt-link to="/register">新規登録する</nuxt-link></button>
         </div>
       </form>
     </div>

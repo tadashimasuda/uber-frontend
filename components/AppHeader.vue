@@ -9,6 +9,9 @@
     <a id="header_menu_icon" href="#">
       <font-awesome-icon icon="bars" />
     </a>
+    <form @submit.prevent="logout">
+    <button type="submit">logout</button>
+    </form>
   </header>
 </template>
 

@@ -7,6 +7,8 @@
         配達員による活動報告や情報共有ができるサイトです！
         <br />Twitter投稿もできるのでご気軽に！
       </p>
+      <p>{{ $auth.user }}</p>
+      <p>{{$auth.$state.loggedIn}}</p>
     </div>
     <div id="login_box">
       <div class="btn" id="twitter">Twitterでログイン</div>
@@ -67,7 +69,7 @@ export default {
     //   return records;
     // },
     topRecord: function () {
-      return this.records.slice(0, 4)
+      return this.records.slice(0, 8);
     },
   },
 };
@@ -83,10 +85,13 @@ div#info {
   font-weight: bold;
   margin-bottom: 30px;
 }
+div#info h1{
+  margin-top: 20px;
+}
 div#info img {
   height: 256px;
   width: 318px;
-  margin-top: 100px;
+  margin-top: 20px;
   margin-bottom: 50px;
 }
 div#login_box {
@@ -95,8 +100,8 @@ div#login_box {
   margin-bottom: 20px;
 }
 div.btn {
-  height: 80px;
-  line-height: 80px;
+  height: 60px;
+  line-height: 60px;
   width: 300px;
   margin: 0 auto;
   text-align: center;
@@ -113,6 +118,7 @@ div#default {
 }
 div#post {
   background-color: red;
+  margin-bottom: 20px;
 }
 div#today_post_box {
   height: auto;
@@ -126,17 +132,19 @@ div#today_post_box h2 {
 div#records_box {
   height: auto;
   width: 100%;
+  border: 1px solid black;
 }
 ul#records {
   height: auto;
   width: 100%;
   margin: 0 auto;
-  text-align: center;
+  border: 1px solid black;
 }
-li#record {
-  width: 550px;
+li#record{
+  width: 45%;
   height: auto;
-  margin: 0 20px 40px 20px;
+  margin-left: 3.33%;
+  margin-bottom: 20px;
   border: 1px solid black;
   float: left;
 }
@@ -187,6 +195,7 @@ div#post_user p {
     margin: 0 20px 40px 20px;
     display: inline-block;
     border: 1px solid black;
+    float: none;
   }
   div.record_img {
     height: 80%;
