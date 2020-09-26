@@ -37,14 +37,11 @@ export default {
   },
   methods: {
     async register() {
-      // await this.$axios.$post("/api/auth/register", this.form)
-      // console.log('ok')
       try {
         await this.$axios
           .$post("/api/auth/register", this.form)
           .then((response) => {
-            console.log(response);
-            // this.$router.push("/login");
+            this.$router.push("/login");
           });
       } catch (error) {
         this.error = true;

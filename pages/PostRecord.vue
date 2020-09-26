@@ -60,7 +60,7 @@
         </li>
         <li class="input">
           <!-- <input type="text" id="comment" v-model="comment" /> -->
-          <textarea id="comment" cols="150" rows="10" name="comment"></textarea>
+          <textarea id="comment" cols="150" rows="10" name="comment" v-model="comment"></textarea>
         </li>
         <div class="control">
           <client-only placeholder="Loading...">
@@ -100,6 +100,7 @@ export default {
         { name: "バイク", value: 1 },
         { name: "車", value: 2 },
       ],
+      user_id:this.$auth.user.id
     };
   },
   methods: {
@@ -111,7 +112,7 @@ export default {
         area: this.area,
         way: this.way,
         count: this.count,
-        user_id: $store.state.auth.user.id,
+        user_id: this.user_id,
         time: this.hour * 60 + this.min,
         reward: Number(this.reward),
       });
@@ -124,7 +125,7 @@ export default {
 div#show {
   background-color: black;
   border: #35aa3e solid 20px;
-  padding: 20px 0;
+  /* padding: 20px 0; */
   height: 400px;
   width: 700px;
   margin: 0 auto;

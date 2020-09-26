@@ -7,8 +7,6 @@
         配達員による活動報告や情報共有ができるサイトです！
         <br />Twitter投稿もできるのでご気軽に！
       </p>
-      <p>{{ $auth.user }}</p>
-      <p>{{$auth.$state.loggedIn}}</p>
     </div>
     <div id="login_box">
       <div class="btn" id="twitter">Twitterでログイン</div>
@@ -26,10 +24,7 @@
           <li id="record" v-for="record in topRecord" :key="record.id">
             <div class="record_img">
               <nuxt-link :to="`/record/${record.file_path}`">
-                <img
-                  :src="'https://uber-backend.s3-ap-northeast-1.amazonaws.com/'+record.file_path"
-                  alt
-                />
+                <img :src="'https://uberbackend.s3-ap-northeast-1.amazonaws.com/'+record.file_path" alt/>
               </nuxt-link>
             </div>
             <div id="post_user">
@@ -151,7 +146,6 @@ li#record{
 li#record img {
   width: 100%;
   height: 270px;
-  background-color: black;
 }
 div#post_user {
   height: 100px;

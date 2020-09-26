@@ -20,7 +20,7 @@
         <ul class="clearfix records">
           <li class="record" v-for="record in records" :key="record.id">
           <nuxt-link :to="`/record/${record.file_path}`">
-            <img :src="'https://uber-backend.s3-ap-northeast-1.amazonaws.com/'+record.file_path" alt="" />
+            <img :src="'https://uberbackend.s3-ap-northeast-1.amazonaws.com/'+record.file_path" alt="" />
           </nuxt-link>
         </li>
         </ul>
