@@ -59,7 +59,6 @@ export default {
     '@nuxtjs/bulma',
     '@nuxtjs/proxy',
     'nuxt-fontawesome',
-
   ],
   /*
   ** Axios module configuration
@@ -69,6 +68,7 @@ export default {
     // See https://github.com/nuxt-community/axios-module#options
     baseURL: "http://localhost:8000/",
     // proxy: true
+    prefix: '/api',
   },
   auth: {
     redirect: {
@@ -89,11 +89,13 @@ export default {
   },
   proxy: {
     // "/api": "/"
-    'api':{
-      target:'http://localhost:8000/'
-    }
-
-  },
+    '/api': {
+      target: 'http://localhost:8000  ',
+      pathRewrite: {
+        '^/api': '/'
+      }
+  }
+},
   fontawesome: {
     imports: [
       {

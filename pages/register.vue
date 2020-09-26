@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div id="register_box">
+        <div v-if="error">エラーが発生しました。もう一度最初から入力してください。</div>
       <form @submit.prevent="register">
         <div id="form_input">
           <!-- <input type="file" name="img" /> -->
@@ -31,26 +32,22 @@ export default {
         password: "hogehoge",
         password_confirmation: "hogehoge",
       },
+      error: false,
     };
   },
   methods: {
     async register() {
-      // await this.$axios.$post("/api/auth/register", this.form).then(response=>{
-      //      console.log(response);
-      //  }).catch(error=>{
-      //      console.log(error);
-      //  });
+      // await this.$axios.$post("/api/auth/register", this.form)
+      // console.log('ok')
       try {
         await this.$axios
           .$post("/api/auth/register", this.form)
           .then((response) => {
             console.log(response);
-            this.$router.push("/login");
+            // this.$router.push("/login");
           });
       } catch (error) {
-            console.log('err');
-            console.log(error.response);
-            console.error()
+        this.error = true;
       }
     },
   },
