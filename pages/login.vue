@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div id="login_form">
+    <!-- <div id="login_form">
       <h2>ログイン状態:{{$auth.$state.loggedIn}}</h2>
       <h2>ユーザ情報:{{ $auth.user }}</h2>
       <form @submit.prevent="login">
@@ -16,11 +16,14 @@
             <nuxt-link to="/register">新規登録する</nuxt-link></button>
         </div>
       </form>
-    </div>
+    </div> -->
+    <LoginForm />
   </div>
 </template>
 
 <script>
+import LoginForm from "@/components/loginForm.vue";
+
 export default {
   data() {
     return {
@@ -34,6 +37,13 @@ export default {
     login() {
       this.$auth.loginWith("local", { data: this.form });
     },
+    async onSubmit() {
+      try {
+        this.$auth.loginWith("local", { data: this.form });
+      } catch (error) {
+        console.log(error);
+      }
+    },    
   },
 };
 </script>
