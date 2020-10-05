@@ -1,11 +1,13 @@
 <template>
   <div class="container">
     <div id="comment_box">
-      <img :src="ogpData.url" />
-      <h2 id="commment_title">投稿者のコメント</h2>
-      <p>{{ogpData.message}}</p>
+      {{ogpData}}
+      <img :src="'https://uberbackend.s3-ap-northeast-1.amazonaws.com/'+ ogpData.url" alt="">
+      <div class="message" v-if="ogpData.message">
+        <h2 id="commment_title" >投稿者のコメント</h2>
+        <p>{{ ogpData.message }}</p>
+      </div>
       <button>お疲れ様を送る</button>
-      <!-- {{this.$store.getters["ogpData"]}} -->
     </div>
   </div>
 </template>
@@ -79,12 +81,12 @@ export default {
   // },
   computed: {
     ogpData() {
-      return this.$store.getters["ogpData"];
+      return this.$store.getters["record/ogpData"];
     },
   },
   async fetch({ app, store, route }) {
     const id = route.params.id;
-    await store.dispatch("getOPG", id);
+    await store.dispatch("record/getOPG", id);
     return;
   },
 };

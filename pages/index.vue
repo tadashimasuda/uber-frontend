@@ -24,13 +24,27 @@
           <li id="record" v-for="record in topRecord" :key="record.id">
             <div class="record_img">
               <nuxt-link :to="`/record/${record.file_path}`">
-                <img :src="'https://uberbackend.s3-ap-northeast-1.amazonaws.com/'+record.file_path" alt/>
+                <img
+                  :src="
+                    'https://uberbackend.s3-ap-northeast-1.amazonaws.com/' +
+                    record.file_path
+                  "
+                  alt
+                />
               </nuxt-link>
             </div>
-            <div id="post_user">
-              <img src alt />
-              <p>Unkown</p>
-            </div>
+            <nuxt-link :to="`/user/${record.users.id}`">
+              <div id="post_user">
+                  <img
+                    :src="
+                      'https://uberbackend.s3-ap-northeast-1.amazonaws.com/profile/' +
+                      record.users.file_path
+                    "
+                    alt=""
+                  />
+                  <p>{{ record.users.name }}</p>
+              </div>
+            </nuxt-link>
           </li>
         </ul>
         <!-- <nuxt-link>もっと見る...</nuxt-link> -->
@@ -80,7 +94,7 @@ div#info {
   font-weight: bold;
   margin-bottom: 30px;
 }
-div#info h1{
+div#info h1 {
   margin-top: 20px;
 }
 div#info img {
@@ -127,15 +141,13 @@ div#today_post_box h2 {
 div#records_box {
   height: auto;
   width: 100%;
-  border: 1px solid black;
 }
 ul#records {
   height: auto;
   width: 100%;
   margin: 0 auto;
-  border: 1px solid black;
 }
-li#record{
+li#record {
   width: 45%;
   height: auto;
   margin-left: 3.33%;
@@ -145,7 +157,7 @@ li#record{
 }
 li#record img {
   width: 100%;
-  height: 270px;
+  height: auto;
 }
 div#post_user {
   height: 100px;

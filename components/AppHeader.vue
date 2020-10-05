@@ -6,9 +6,6 @@
           <span>配達員日記</span>
         </h1>
       </nuxt-link>
-    <a id="header_menu_icon" href="#">
-      <font-awesome-icon icon="bars" />
-    </a>
     <form @submit.prevent="logout">
     <button type="submit">logout</button>
     </form>
@@ -42,6 +39,7 @@ header {
   height: 180px;
   width: 100%;
   background-color: #35aa3e;
+  text-align: center;
 }
 h1#header_title {
   line-height: 180px;

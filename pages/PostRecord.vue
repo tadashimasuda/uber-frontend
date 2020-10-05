@@ -2,73 +2,158 @@
   <div class="container">
     <div id="show">
       <p id="ogp_title">本日の配達</p>
-      <p id="ogp_area">{{area}} エリア</p>
+      <p id="ogp_area">{{ area }} エリア</p>
       <div id="ogp_time_count">
-        <span id="canvas_time">{{hour}}時間{{min}}分</span>
-        <span id="canvas_count">{{count}}件</span>
+        <span id="canvas_time">{{ hour }}時間{{ min }}分</span>
+        <span id="canvas_count">{{ count }}件</span>
       </div>
       <span v-for="option in ways" :key="option.id">
-        <template v-if="option.value === way">{{option.name}}</template>
+        <template v-if="option.value === way">{{ option.name }}</template>
       </span>
       <div id="ogp_reward">
-        <span id="canvas_reward">報酬:{{reward}}円</span>
+        <span id="canvas_reward">報酬:{{ reward }}円</span>
       </div>
     </div>
-    <ul id="form">
-      <form>
-        <li class="label">
-          <label for="area">稼働エリア</label>
-        </li>
-        <li class="input">
-          <input type="text" v-model="area" />
-        </li>
-        <li class="label">
-          <label for="way">配達手段</label>
-        </li>
-        <li class="input">
-          <select name id v-model="way">
-            <option v-for="way in ways" :key="way.id" :value="way.value">{{ way.name }}</option>
-          </select>
-        </li>
-        <li class="label">
-          <label for="count">配達件数</label>
-        </li>
-        <li class="input">
-          <select name id v-model="count">
-            <option v-for="count in 50" :key="count.id" :value="count">{{ count }}</option>
-          </select>
-        </li>
-        <li class="label">
-          <label for="time">稼働時間</label>
-        </li>
-        <li class="input">
-          <select name id v-model="hour">
-            <option v-for="hour in 12" :key="hour.id" :value="hour">{{ hour }}</option>
-          </select>時間
-          <select name id v-model="min">
-            <option v-for="min in 59" :key="min.id" :value="min">{{ min }}</option>
-          </select>分
-        </li>
-        <li class="label">
-          <label for="reward">報酬金額</label>
-        </li>
-        <li class="input">
-          <input type="number" id="reward" v-model="reward" />円
-        </li>
-        <li class="label">
-          <label for="comment">コメント</label>
-        </li>
-        <li class="input">
-          <!-- <input type="text" id="comment" v-model="comment" /> -->
-          <textarea id="comment" cols="150" rows="10" name="comment" v-model="comment"></textarea>
-        </li>
-        <div class="control">
-          <client-only placeholder="Loading...">
-            <GenerateOGPButton @click="handleGenerateOGP" />
-          </client-only>
-        </div>
-      </form>
-    </ul>
+
+    <ValidationObserver ref="observer" v-slot="{ errors }">
+      <ul id="form">
+        <form>
+          <li class="label">
+            <label for="area">稼働エリア</label>
+          </li>
+          <li class="input">
+            <ValidationProvider
+              name="エリア"
+              rules="required"
+              v-slot="{ errors }"
+              style="width:100%;"
+            >
+              <input type="text" v-model="area" v-on:change="formCheck" class="input"/>
+              <span>{{ errors[0] }}</span>
+            </ValidationProvider>
+          </li>
+          <li class="label">
+            <label for="way">配達手段</label>
+          </li>
+          <p v-if="errors">{{ errors.way }}</p>
+          <li class="input">
+            <ValidationProvider
+              name="配達手段"
+              rules="required"
+              v-slot="{ errors }"
+              style="width:100%;"
+            >
+              <select name id v-model="way">
+                <option
+                  v-for="way in ways"
+                  :key="way.id"
+                  :value="way.value"
+                  v-on:change="formCheck"
+                >
+                  {{ way.name }}
+                </option>
+              </select>
+              <span>{{ errors[0] }}</span>
+            </ValidationProvider>
+          </li>
+          <li class="label">
+            <label for="count">配達件数</label>
+          </li>
+          <p v-if="errors">{{ errors.count }}</p>
+          <li class="input">
+            <ValidationProvider
+              name="配達件数"
+              rules="required"
+              v-slot="{ errors }"
+              style="width:100%;"
+            >
+              <select name id v-model="count">
+                <option v-for="count in 50" :key="count.id" :value="count">
+                  {{ count }}
+                </option>
+              </select>
+              <span>{{ errors[0] }}</span>
+            </ValidationProvider>
+          </li>
+          <li class="label">
+            <label for="time">稼働時間</label>
+          </li>
+          <p v-if="errors">{{ errors.hour }}</p>
+          <li class="input">
+            <ValidationProvider
+              name="稼働時間"
+              rules="required"
+              v-slot="{ errors }"
+              style="width:100%;"
+            >
+              <select name id v-model="hour">
+                <option v-for="hour in 12" :key="hour.id" :value="hour">
+                  {{ hour }}
+                </option></select
+              >時間
+              <select name id v-model="min">
+                <option v-for="min in 59" :key="min.id" :value="min">
+                  {{ min }}
+                </option></select
+              >分
+              <span>{{ errors[0] }}</span>
+            </ValidationProvider>
+          </li>
+          <li class="label">
+            <label for="reward">報酬金額</label>
+          </li>
+          <p v-if="errors">{{ errors.reward }}</p>
+          <li class="input">
+            <ValidationProvider
+              name="報酬金額"
+              rules="min_value:100|required"
+              v-slot="{ errors }"
+              style="width:100%;"
+            >
+              <input type="number" id="reward" v-model="reward" />円
+              <span>{{ errors[0] }}</span>
+              <span>{{ errors[1] }}</span>
+            </ValidationProvider>
+          </li>
+          <li class="label">
+            <label for="comment">コメント</label>
+          </li>
+          <li class="input">
+            <textarea
+              id="comment"
+              cols="150"
+              rows="10"
+              name="comment"
+              v-model="comment"
+            ></textarea>
+          </li>
+          <li>
+            <span v-if="errors['エリア']== '' && errors['配達手段']=='' &&errors['配達件数']==''&&errors['稼働時間']==''&&errors['報酬金額']==''"> 
+              <client-only placeholder="Loading...">
+                <GenerateOGPButton @click="handleGenerateOGP" />
+              </client-only>
+            </span>
+          </li>
+        </form>
+      </ul>
+    </ValidationObserver>
+
+    <div id="control">
+      <!-- <div id="show">
+            <p id="ogp_title">本日の配達</p>
+            <p id="ogp_area">{{ area }} エリア</p>
+            <div id="ogp_time_count">
+              <span id="canvas_time">{{ hour }}時間{{ min }}分</span>
+              <span id="canvas_count">{{ count }}件</span>
+            </div>
+            <span v-for="option in ways" :key="option.id">
+              <template v-if="option.value === way">{{ option.name }}</template>
+            </span>
+            <div id="ogp_reward">
+              <span id="canvas_reward">報酬:{{ reward }}円</span>
+            </div>
+          </div> -->
+    </div>
   </div>
 </template>
 
@@ -76,7 +161,7 @@
 import GenerateOGPButton from "@/components/GenerateOGPButton";
 
 export default {
-  middleware({ $auth,store, redirect }) {
+  middleware({ $auth, store, redirect }) {
     if (!$auth.state.loggedIn) {
       redirect("/login");
     }
@@ -100,7 +185,7 @@ export default {
         { name: "バイク", value: 1 },
         { name: "車", value: 2 },
       ],
-      user_id:this.$auth.user.id
+      user_id: this.$auth.user.id,
     };
   },
   methods: {
@@ -116,6 +201,42 @@ export default {
         time: this.hour * 60 + this.min,
         reward: Number(this.reward),
       });
+    },
+    formCheck() {
+      this.errors = [];
+      if (!this.area) {
+        this.errors.area = "正しく入力してください";
+      }
+      if (!this.reward) {
+        this.errors.reward = "正しく入力してください";
+      }
+      if (!this.way) {
+        this.errors.way = "正しく入力してください";
+      }
+      if (!this.count) {
+        this.errors.count = "正しく入力してください";
+      }
+      if (!this.hour || !this.min) {
+        this.errors.hour = "正しく入力してください";
+      }
+
+      if (!this.errors.length) {
+        //not error
+        console.log("not error", this.errors);
+        if (process.client) {
+          // 追加
+          // document.body.style.backgroundColor = "rgba(0,0,0,0.5)"
+          // document.getElementById("control").style.display ="block"
+        }
+      }
+    },
+  },
+  computed: {
+    check() {
+      if (!this.errors.length) {
+        return false;
+      }
+      return true;
     },
   },
 };
@@ -154,6 +275,7 @@ ul#form {
 }
 li {
   height: auto;
+  width: 100%;
 }
 li input,
 select {
@@ -163,6 +285,9 @@ select {
 }
 li.input {
   margin-bottom: 10px;
+}
+div#control {
+  display: none;
 }
 @media screen and (max-width: 460px) {
   div#show {

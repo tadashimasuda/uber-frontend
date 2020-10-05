@@ -10,6 +10,7 @@ export const state = () => ({
     isLoading: false,
     ogpData: {},
     AllData: {},
+    user:{}
 });
 
 export const mutations = {
@@ -29,6 +30,9 @@ export const mutations = {
     },
     setAll(state, payload) {
         state.AllData = payload;
+    },
+    setUser(state,payload){
+        state.user = payload;
     }
 };
 
@@ -47,7 +51,8 @@ export const actions = {
     },
     async getUserrecords({ commit }, payload){
         const records = await this.$axios.$get(`/api/records/user/${payload}`);
-        commit("setAll",records);
+        commit("setUser",records[0]);
+        commit("setAll",records[1]);
     },
     setLoading({ commit }, payload) {
         commit("setLoading", payload);
@@ -71,5 +76,8 @@ export const getters = {
     },
     AllData(state) {
         return state.AllData;
+    },
+    User(state){
+        return state.user;
     }
 };

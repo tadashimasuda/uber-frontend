@@ -2,27 +2,34 @@
   <div class="container">
     <div id="user_box">
       <div id="user_info">
-        <div id="user_img"></div>
-        <p id="user_name">username</p>
+        <div id="user_img">
+          <img :src="'https://uberbackend.s3-ap-northeast-1.amazonaws.com/profile/'+user[0].file_path" alt="">
+        </div>
+        <p id="user_name">{{ user[0].name }}</p>
         <div id="user_profile">
-          <p>テキストテキストテキストテキストテキストテキストテキスト</p>
+          <p></p>
         </div>
       </div>
       <div id="chart_box">
         <div id="total">
-          <p>今までの合計金額:{{ records | total}}円</p>
+          <p>今までの合計金額:{{ records | total }}円</p>
         </div>
         <div id="chart">
-          <BarChart :recent5days="records|recent5days" />
+          <BarChart :labels="records | labels" :data="records | data"/>
         </div>
       </div>
       <div id="user_records">
         <ul class="clearfix records">
           <li class="record" v-for="record in records" :key="record.id">
-          <nuxt-link :to="`/record/${record.file_path}`">
-            <img :src="'https://uberbackend.s3-ap-northeast-1.amazonaws.com/'+record.file_path" alt="" />
-          </nuxt-link>
-        </li>
+            <nuxt-link :to="`/record/${record.file_path}`">
+              <img
+                :src="
+                  'https://uberbackend.s3-ap-northeast-1.amazonaws.com/' +
+                  record.file_path"
+                alt=""
+              />
+            </nuxt-link>
+          </li>
         </ul>
       </div>
     </div>
@@ -43,6 +50,7 @@ export default {
   data() {
     return {
       records: this.$store.getters["record/AllData"],
+      user : this.$store.getters["record/User"]
     };
   },
   async fetch({ route, store, params }) {
@@ -58,19 +66,33 @@ export default {
       }
       return total;
     },
-    recent5days: function (records) {
-      //recent5days data change object
+    labels: function (records) {
       let record = "";
-      let recentRecords = [];
-
-      for (let x = 0; x < 5; x++) {
-        recentRecords.push({
-          reward: records[x].reward,
-          created_at: records[x].created_at.substring(5, 10),
-        });
+      let labels =[];
+      if (records.length >= 4) {
+        for (let x = 0; x < 5; x++) {
+          labels.push(records[x].created_at.substring(5, 10))
+        }
+      }else{
+        for (let x = 0; x < records.length; x++) {
+          labels.push(records[x].created_at.substring(5, 10))
+        }
       }
-      return recentRecords;
+      return labels;
     },
+    data:function(records){
+      let data = [];
+      if (records.length >= 4) {
+        for (let x = 0; x < 5; x++) {
+          data.push(records[x].reward);
+        }
+      }else{
+        for (let x = 0; x < records.length; x++) {
+          data.push(records[x].reward);
+        }
+      }
+      return data;
+    }
   },
 };
 </script>
@@ -84,13 +106,14 @@ div#user_box {
   margin: 0 auto;
   margin-top: 100px;
 }
-div#user_img {
+div#user_img  img{
   height: 200px;
   width: 200px;
   border-radius: 50%;
   margin: 0 auto;
   border: 1px solid black;
   margin-top: 20px;
+  display: block;
 }
 p#user_name {
   margin-top: 20px;
@@ -119,7 +142,7 @@ div#user_records,
   margin-top: 20px;
   border: 1px solid black;
 }
-div#chart{
+div#chart {
   width: 100%;
 }
 div#total {
@@ -131,7 +154,7 @@ div#total {
 ul.records {
   width: 100%;
   height: auto;
-  margin:0 auto;
+  margin: 0 auto;
 }
 li.record {
   width: 45%;
@@ -152,7 +175,7 @@ li.record img {
 @media screen and (max-width: 460px) {
   li.record {
     width: 90%;
-    margin:0 auto;
+    margin: 0 auto;
     float: none;
     margin-bottom: 10px;
   }

@@ -9,7 +9,7 @@ export default {
   mounted() {
     const elm = this.$refs.capture;
     const self = this;
-
+  console.log(elm)
     this.$nextTick(() => {
       if (process.client) {
         const h2c = require("html2canvas");
@@ -35,7 +35,7 @@ export default {
   methods:{
       handleClick(dataURL){
           this.$emit("click",dataURL);
-      }
+      },
   }
 };
 </script>

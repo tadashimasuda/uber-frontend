@@ -2,29 +2,48 @@
 import { Bar } from "vue-chartjs";
 export default {
   extends: Bar,
-  props: ["recent5days"],
+  // props: ["recent5days"],
+  props: ["labels", "data"],
+  // props :['datas'],
+  // data() {
+  //   return {
+  //     chartdata: {
+  //       // labels: [
+  //       //   this.recent5days[0].created_at,
+  //       //   this.recent5days[1].created_at,
+  //       //   this.recent5days[2].created_at,
+  //       //   this.recent5days[3].created_at,
+  //       //   this.recent5days[4].created_at,
+  //       // ],
+  //       // datasets: [
+  //       //   {
+  //       //     backgroundColor: "#04C950",
+  //       //     data: [
+  //       //       this.recent5days[0].reward,
+  //       //       this.recent5days[1].reward,
+  //       //       this.recent5days[2].reward,
+  //       //       this.recent5days[3].reward,
+  //       //       this.recent5days[4].reward,
+  //       //     ],
+  //       //   },
+  //       // ],
+  //     },
+  //     options: {
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //     },
+  //   };
+  // },
   data() {
     return {
       chartdata: {
-        labels: [
-          this.recent5days[0].created_at,
-          this.recent5days[1].created_at,
-          this.recent5days[2].created_at,
-          this.recent5days[3].created_at,
-          this.recent5days[4].created_at,
-        ],
+        labels: this.labels,
         datasets: [
           {
             backgroundColor: "#04C950",
-            data: [
-              this.recent5days[0].reward,
-              this.recent5days[1].reward,
-              this.recent5days[2].reward,
-              this.recent5days[3].reward,
-              this.recent5days[4].reward,
-            ],
+            data: this.data,
           },
-        ],  
+        ],
       },
       options: {
         responsive: true,

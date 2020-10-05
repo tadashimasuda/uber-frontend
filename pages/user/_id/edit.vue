@@ -1,21 +1,5 @@
 <template>
   <div class="container">  
-    <!-- <form @submit.prevent="edit">
-      <ul>
-        <li class="form_input">
-          <input v-model="form.name" type="text" name="name" placeholder="ユーザー名(必須)" />
-        </li>
-        <li class="form_input">
-          <input v-model="form.email" type="email" name="Email" placeholder="メールアドレス(必須)" />
-        </li>
-        <li class="form_input"> 
-          <input type="file" name="file_path" id="file_path" />
-        </li >
-        <li class="button">
-            <button type="submit">編集する</button>
-        </li>
-      </ul>
-    </form> -->
     <EditForm />
   </div>
 </template>
@@ -27,6 +11,7 @@ export default {
     return {
       form: {
         //$auth.user.name?
+        user_id :this.$auth.user.id,
         name: "",
         email: "",
         file_path: "",
