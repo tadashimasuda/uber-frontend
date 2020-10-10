@@ -7,6 +7,11 @@
 <script>
 import EditForm from "@/components/editForm.vue";
 export default {
+  middleware({ $auth, store, redirect }) {
+    if (!$auth.state.loggedIn) {
+      redirect("/login");
+    }
+  },
   data() {
     return {
       form: {

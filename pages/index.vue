@@ -15,7 +15,6 @@
       </nuxt-link>
     </div>
     <div id="today_post_box">
-      <h2>本日の配達</h2>
       <nuxt-link id="post_btn" to="/PostRecord">
         <div id="post" class="btn">投稿する</div>
       </nuxt-link>
@@ -91,7 +90,6 @@ div#info {
   background: #fff;
   text-align: center;
   font-size: 30px;
-  font-weight: bold;
   margin-bottom: 30px;
 }
 div#info h1 {
@@ -132,12 +130,6 @@ div#post {
 div#today_post_box {
   height: auto;
 }
-div#today_post_box h2 {
-  text-align: center;
-  font-weight: bold;
-  font-size: 20px;
-  margin-bottom: 20px;
-}
 div#records_box {
   height: auto;
   width: 100%;
@@ -152,8 +144,9 @@ li#record {
   height: auto;
   margin-left: 3.33%;
   margin-bottom: 20px;
-  border: 1px solid black;
   float: left;
+  border: 1px solid rgba(0,0,0,0.2);
+  box-shadow: 10px 10px 10px rgba(0,0,0,0.1);
 }
 li#record img {
   width: 100%;
@@ -168,11 +161,13 @@ div#post_user img {
   width: 60px;
   border-radius: 50%;
   float: left;
-  margin-left: 20px;
+  margin: 10px 10px 10px 20px;
 }
 div#post_user p {
   float: left;
   margin-top: 10px;
+  color: black;
+  line-height: 60px;
 }
 .clearfix::after {
   content: "";

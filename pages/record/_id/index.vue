@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div id="comment_box">
-      {{ogpData}}
       <img :src="'https://uberbackend.s3-ap-northeast-1.amazonaws.com/'+ ogpData.url" alt="">
       <div class="message" v-if="ogpData.message">
         <h2 id="commment_title" >投稿者のコメント</h2>

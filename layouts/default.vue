@@ -19,6 +19,6 @@ div.container {
   max-width: 1200px;
   min-height: 500px;
   height: auto;
-  border: 1px solid black;
+  /* border: 1px solid #707070; */
 }
 </style>

@@ -39,11 +39,6 @@
 <script>
 import BarChart from "@/components/BarChart.vue";
 export default {
-  //   middleware({ store, redirect }) {
-  //     if (store.$auth.authenticated) {
-  //       redirect("/login");
-  //     }
-  //   },
   components: {
     BarChart,
   },
@@ -155,11 +150,13 @@ ul.records {
   width: 100%;
   height: auto;
   margin: 0 auto;
+  margin-top: 10%;
 }
 li.record {
   width: 45%;
   height: auto;
-  border: 1px solid black;
+  border: 1px solid rgba(0,0,0,0.2);
+  box-shadow: 10px 10px 10px rgba(0,0,0,0.1);
   float: left;
   margin-left: 3.33%;
   margin-bottom: 20px;

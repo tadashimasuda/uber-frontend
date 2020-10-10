@@ -6,9 +6,9 @@
           <span>配達員日記</span>
         </h1>
       </nuxt-link>
-    <form @submit.prevent="logout">
+    <!-- <form @submit.prevent="logout">
     <button type="submit">logout</button>
-    </form>
+    </form> -->
   </header>
 </template>
 
